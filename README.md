@@ -6,7 +6,9 @@
 [https://kapeli.com/cheat_sheets/NSPredicate.docset/Contents/Resources/Documents/index](https://kapeli.com/cheat_sheets/NSPredicate.docset/Contents/Resources/Documents/index)
 
 %K => #keyPath
+
 %@ => String, Date
+
 %i => Number
 
 BEGINSWITH[cd] ⇒ case insensitive, dialect 
