@@ -149,3 +149,27 @@ extension Movie: BaseModel {
     
 }
 ```
+
+### SORT
+
+```swift
+# Sort
+
+```swift
+func sort() {
+      let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+      
+      // selectedSortOptions => title, releaseDate, rating
+      // selectedSortDirection => true, false
+      request.sortDescriptors = [NSSortDescriptor(key: selectedSortOption.rawValue, ascending: selectedSortDirection.value)]
+      let fetchedResultController: NSFetchedResultsController<Movie> = NSFetchedResultsController(fetchRequest: request,
+                                                                                                  managedObjectContext: CoreDataManager.shared.viewContext,
+                                                                                                  sectionNameKeyPath: nil,
+                                                                                                  cacheName: nil)
+      try? fetchedResultController.performFetch()
+      DispatchQueue.main.async {
+          self.movies = (fetchedResultController.fetchedObjects ?? []).map(MovieViewModel.init)
+      }
+  }
+```
+```
