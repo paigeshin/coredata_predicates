@@ -1,7 +1,7 @@
 # coredate_predicates
 
 
-# Predicate
+### Predicate
 
 [https://kapeli.com/cheat_sheets/NSPredicate.docset/Contents/Resources/Documents/index](https://kapeli.com/cheat_sheets/NSPredicate.docset/Contents/Resources/Documents/index)
 
@@ -153,9 +153,6 @@ extension Movie: BaseModel {
 ### SORT
 
 ```swift
-# Sort
-
-```swift
 func sort() {
       let request: NSFetchRequest<Movie> = Movie.fetchRequest()
       
@@ -171,5 +168,5 @@ func sort() {
           self.movies = (fetchedResultController.fetchedObjects ?? []).map(MovieViewModel.init)
       }
   }
-```
+
 ```
