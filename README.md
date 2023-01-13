@@ -150,7 +150,9 @@ extension Movie: BaseModel {
 }
 ```
 
-### SORT
+# Sort
+
+### FechtedResultController
 
 ```swift
 func sort() {
@@ -168,5 +170,33 @@ func sort() {
           self.movies = (fetchedResultController.fetchedObjects ?? []).map(MovieViewModel.init)
       }
   }
+```
 
+### FetchResultsController Delegate Method 
+
+```swift
+extension MovieListViewModel: NSFetchedResultsControllerDelegate {
+    
+    func getAllMovies() {
+        let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        self.fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
+                                                                   managedObjectContext: CoreDataManager.shared.viewContext,
+                                                                   sectionNameKeyPath: nil,
+                                                                   cacheName: nil)
+        self.fetchedResultsController.delegate = self
+        try? self.fetchedResultsController.performFetch()
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.movies = (self?.fetchedResultsController.fetchedObjects ?? []).map(MovieViewModel.init)
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        DispatchQueue.main.async { [weak self] in
+            self?.movies = (controller.fetchedObjects as? [Movie] ?? []).map(MovieViewModel.init)
+        }
+    }
+    
+}
 ```
